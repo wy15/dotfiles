@@ -1,6 +1,6 @@
 # dotfiles
 
-Fork from Sebastian Dahlgren, thks very much for her work!
+Fork from Sebastian Dahlgren, thks very much for his work!
 
 Fit my ENV, neovim, and other.
 
