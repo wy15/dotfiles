@@ -5,7 +5,7 @@
 " instructions:
 " https://github.com/junegunn/vim-plug
 "----------------------------------------------
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 
 " Dependencies
 Plug 'Shougo/neocomplcache'        " Depenency for Shougo/neosnippet
@@ -42,14 +42,13 @@ Plug 'w0rp/ale'
 " Language support
 Plug 'aklt/plantuml-syntax'
 Plug 'cespare/vim-toml'
-Plug 'dag/vim-fish'
 Plug 'digitaltoad/vim-pug'
 Plug 'fatih/vim-go'
 Plug 'fishbullet/deoplete-ruby'
 Plug 'kchmck/vim-coffee-script'
 Plug 'kylef/apiblueprint.vim'
 Plug 'lifepillar/pgsql.vim'
-Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
+Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 Plug 'plasticboy/vim-markdown'
 Plug 'tclh123/vim-thrift'
 Plug 'zchee/deoplete-go', { 'do': 'make'}
@@ -548,14 +547,6 @@ au FileType css set tabstop=2
 "----------------------------------------------
 au FileType gitcommit setlocal spell
 au FileType gitcommit setlocal textwidth=80
-
-"----------------------------------------------
-" Language: fish
-"----------------------------------------------
-au FileType fish set expandtab
-au FileType fish set shiftwidth=2
-au FileType fish set softtabstop=2
-au FileType fish set tabstop=2
 
 "----------------------------------------------
 " Language: HTML

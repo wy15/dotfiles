@@ -2,7 +2,7 @@
 
 echo "Linking configuration"
 
-FILES=(config gitconfig gitignore profile tmux.conf vimrc.local)
+FILES=(config gitconfig gitignore tmux.conf)
 
 function backup_or_unlink {
   DEST=$1 ; shift
