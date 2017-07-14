@@ -83,6 +83,7 @@ set novisualbell                  " I said, no bells!
 set number                        " show number ruler
 set relativenumber                " show relative numbers in the ruler
 set ruler
+set formatoptions=tcqron          " set text formatting options"
 set softtabstop=2
 set tabstop=2
 set textwidth=80
@@ -559,7 +560,7 @@ au FileType css set tabstop=2
 "----------------------------------------------
 " Language: gitcommit
 "----------------------------------------------
-au FileType gitcommit setlocal spell
+au FileType gitcommit setlocal spell spelllang=en_us,cjk
 au FileType gitcommit setlocal textwidth=80
 
 "----------------------------------------------
@@ -605,7 +606,7 @@ au FileType make set tabstop=2
 "----------------------------------------------
 " Language: Markdown
 "----------------------------------------------
-au FileType markdown setlocal spell
+au FileType markdown setlocal spell spelllang=en_us,cjk
 au FileType markdown set expandtab
 au FileType markdown set shiftwidth=4
 au FileType markdown set softtabstop=4
