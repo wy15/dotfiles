@@ -53,6 +53,8 @@ Plug 'plasticboy/vim-markdown'
 Plug 'tclh123/vim-thrift'
 Plug 'zchee/deoplete-go', { 'do': 'make'}
 Plug 'zchee/deoplete-jedi'
+Plug 'udalov/kotlin-vim'
+Plug 'tfnico/vim-gradle'
 
 " Colorschemes
 Plug 'NLKNguyen/papercolor-theme'
@@ -96,8 +98,16 @@ if has('nvim')
     " install the neovim package for these binaries separately like this for
     " example:
     " pip3.6 install -U neovim
-    let g:python_host_prog = '/usr/local/bin/python2.7'
-    let g:python3_host_prog = '/usr/local/bin/python3.6'
+    if has('mac')
+        let g:python_host_prog = '/usr/local/bin/python2.7'
+        let g:python3_host_prog = '/usr/local/bin/python3.6'
+    elseif has('unix')
+        let g:python_host_prog = '/home/linuxbrew/.linuxbrew/bin/python2.7'
+        let g:python3_host_prog = '/home/linuxbrew/.linuxbrew/bin/python3.6'
+    else
+        let g:python_host_prog = '/usr/local/bin/python2.7'
+        let g:python3_host_prog = '/usr/local/bin/python3.6'
+    endif
 endif
 
 " Enable mouse if possible
@@ -119,6 +129,9 @@ autocmd BufWritePre * :%s/\s\+$//e
 
 " Center the screen quickly
 nnoremap <space> zz
+
+" use jk for ESC
+imap jk <Esc>
 
 "----------------------------------------------
 " Colors
@@ -684,3 +697,19 @@ au FileType yaml set expandtab
 au FileType yaml set shiftwidth=2
 au FileType yaml set softtabstop=2
 au FileType yaml set tabstop=2
+
+"----------------------------------------------
+" Language: Kotlin
+"----------------------------------------------
+au FileType kotlin set expandtab
+au FileType kotlin set shiftwidth=4
+au FileType kotlin set softtabstop=4
+au FileType kotlin set tabstop=4
+
+"----------------------------------------------
+" Language: Gradle
+"----------------------------------------------
+au FileType groovy set expandtab
+au FileType groovy set shiftwidth=4
+au FileType groovy set softtabstop=4
+au FileType groovy set tabstop=4
