@@ -275,8 +275,12 @@ let g:airline#extensions#tabline#enabled = 1
 " what is shown in the tabline at all times.
 let g:airline#extensions#tabline#show_tabs = 0
 
-" Enable powerline fonts.
+" Disable powerline fonts.
 let g:airline_powerline_fonts = 0
+" When os is linux, set use ascii symbol
+if has('unix') && !has('mac')
+    let g:airline_symbols_ascii = 1
+endif
 
 " tabline configuration
 let g:airline#extensions#tabline#fnamemod = ':t'
