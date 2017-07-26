@@ -104,8 +104,8 @@ if has('nvim')
         let g:python_host_prog = '/usr/local/bin/python2.7'
         let g:python3_host_prog = '/usr/local/bin/python3.6'
     elseif has('unix')
-        let g:python_host_prog = '/home/linuxbrew/.linuxbrew/bin/python2.7'
-        let g:python3_host_prog = '/home/linuxbrew/.linuxbrew/bin/python3.6'
+        let g:python_host_prog = '/usr/bin/python2.7'
+        let g:python3_host_prog = '/usr/bin/python3.6'
     else
         let g:python_host_prog = '/usr/local/bin/python2.7'
         let g:python3_host_prog = '/usr/local/bin/python3.6'
@@ -211,7 +211,7 @@ set splitbelow
 set splitright
 
 " Creating splits
-nnoremap <leader>v :vsplit<cr>
+nnoremap <leader>v :vsplit\|term<cr>
 nnoremap <leader>h :split<cr>
 
 " Closing splits
