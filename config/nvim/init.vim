@@ -38,6 +38,7 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'vimwiki/vimwiki'
+Plug 'Chiel92/vim-autoformat'
 
 " Language support
 Plug 'aklt/plantuml-syntax'
@@ -53,6 +54,7 @@ Plug 'plasticboy/vim-markdown'
 Plug 'tclh123/vim-thrift'
 Plug 'zchee/deoplete-go', { 'do': 'make'}
 Plug 'zchee/deoplete-jedi'
+Plug 'fisadev/vim-isort'
 Plug 'udalov/kotlin-vim'
 Plug 'tfnico/vim-gradle'
 
@@ -132,6 +134,9 @@ nnoremap <space> zz
 
 " use jk for ESC
 imap jk <Esc>
+
+" Autoformat
+noremap <leader>= :Autoformat<CR>
 
 "----------------------------------------------
 " Colors
@@ -683,6 +688,13 @@ au FileType python set expandtab
 au FileType python set shiftwidth=4
 au FileType python set softtabstop=4
 au FileType python set tabstop=4
+
+" Enable neomake for linting.
+au FileType python autocmd BufWritePost * Neomake
+
+" isort
+"let g:vim_isort_map='<C-i>'
+let g:vim_isort_python_version='python3'
 
 "----------------------------------------------
 " Language: Ruby
