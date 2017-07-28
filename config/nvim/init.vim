@@ -100,7 +100,7 @@ if has('nvim')
     " install the neovim package for these binaries separately like this for
     " example:
     " mkvirtualenv neovim -p python3 && workon neovim && pip3.6 install -U neovim isort jedi yapf
-    let g:python3_host_prog = '/Users/maqi/.virtualenvs/neovim/bin/python'
+    let g:python3_host_prog = $HOME.'/.virtualenvs/neovim/bin/python3'
 endif
 
 " Enable mouse if possible
