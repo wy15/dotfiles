@@ -18,11 +18,11 @@ For OS X copy super powers
 
     brew install reattach-to-user-namespace
 
-~~ ## Installation ~~
+~~## Installation~~
 
-~~ Install the dotfiles ~~
+~~Install the dotfiles~~
 
-    ~~ ./install.sh ~~
+    ~~./install.sh~~
 
 ## Manual installation
 
