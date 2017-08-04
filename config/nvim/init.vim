@@ -766,5 +766,6 @@ au FileType rust set shiftwidth=4
 au FileType rust set softtabstop=4
 au FileType rust set tabstop=4
 
+au FileType rust autocmd BufWritePost * Neomake
 let g:deoplete#sources#rust#racer_binary='$HOME/.cargo/bin/racer'
 let g:deoplete#sources#rust#rust_source_path="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
