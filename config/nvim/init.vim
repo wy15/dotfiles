@@ -57,6 +57,7 @@ Plug 'zchee/deoplete-jedi'
 Plug 'fisadev/vim-isort'
 Plug 'udalov/kotlin-vim'
 Plug 'tfnico/vim-gradle'
+Plug 'sebastianmarkow/deoplete-rust'
 
 " Colorschemes
 Plug 'NLKNguyen/papercolor-theme'
@@ -756,3 +757,14 @@ au FileType groovy set expandtab
 au FileType groovy set shiftwidth=4
 au FileType groovy set softtabstop=4
 au FileType groovy set tabstop=4
+
+"----------------------------------------------
+" Language: Rust
+"----------------------------------------------
+au FileType rust set expandtab
+au FileType rust set shiftwidth=4
+au FileType rust set softtabstop=4
+au FileType rust set tabstop=4
+
+let g:deoplete#sources#rust#racer_binary='$HOME/.cargo/bin/racer'
+let g:deoplete#sources#rust#rust_source_path="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
