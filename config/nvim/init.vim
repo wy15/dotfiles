@@ -58,6 +58,7 @@ Plug 'fisadev/vim-isort'
 Plug 'udalov/kotlin-vim'
 Plug 'tfnico/vim-gradle'
 Plug 'sebastianmarkow/deoplete-rust'
+Plug 'hdima/python-syntax'
 
 " Colorschemes
 Plug 'NLKNguyen/papercolor-theme'
@@ -690,6 +691,8 @@ au FileType python autocmd BufWritePost * Neomake
 " isort
 "let g:vim_isort_map='<C-i>'
 let g:vim_isort_python_version='python3'
+" python_highlight
+"let python_highlight_all = 1
 
 "----------------------------------------------
 " Language: Ruby
