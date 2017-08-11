@@ -11,6 +11,7 @@ Awesome dotfiles for this and that!
 - [Homebrew](http://brew.sh/)
 - neovim (install via `brew`)
 - tmux (install via `brew`)
+- ack (install via `brew`)
 
 ### tmux dependencies
 

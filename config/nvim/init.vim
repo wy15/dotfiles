@@ -101,7 +101,7 @@ if has('nvim')
     " Set the Python binaries neovim is using. Please note that you will need to
     " install the neovim package for these binaries separately like this for
     " example:
-    " mkvirtualenv neovim -p python3 && workon neovim && pip3.6 install -U neovim isort jedi yapf
+    " mkvirtualenv neovim -p python3 && workon neovim && pip3.6 install -U neovim isort jedi yapf pylama
     let g:python3_host_prog = $HOME.'/.virtualenvs/neovim/bin/python3'
 endif
 
@@ -693,6 +693,8 @@ au FileType python autocmd BufWritePost * Neomake
 let g:vim_isort_python_version='python3'
 " python_highlight
 "let python_highlight_all = 1
+" yapf style
+let g:formatter_yapf_style = 'google'
 
 "----------------------------------------------
 " Language: Ruby
