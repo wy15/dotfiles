@@ -23,7 +23,7 @@ For OS X copy super powers
 
 ~~Install the dotfiles~~
 
-    ~~./install.sh~~
+~~    ./install.sh ~~
 
 ## Manual installation
 
