@@ -707,7 +707,7 @@ let g:vim_isort_python_version='python3'
 " python_highlight
 "let python_highlight_all = 1
 " yapf style
-let g:formatter_yapf_style = 'google'
+"let g:formatter_yapf_style = 'google'
 
 "----------------------------------------------
 " Language: Ruby
