@@ -470,8 +470,14 @@ imap <C-k> <Plug>(neosnippet_expand_or_jump)
 smap <C-k> <Plug>(neosnippet_expand_or_jump)
 xmap <C-k> <Plug>(neosnippet_expand_target)
 
+" Enable snipMate compatibility feature.
+"let g:neosnippet#enable_snipmate_compatibility = 1
+
 " Set the path to our snippets
 let g:neosnippet#snippets_directory='~/.config/nvim/snippets'
+
+" Set snips author
+let g:snips_author = "wy@maqi.me"
 
 "----------------------------------------------
 " Plugin: vimwiki/vimwiki
