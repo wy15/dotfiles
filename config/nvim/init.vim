@@ -40,6 +40,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'vimwiki/vimwiki'
 Plug 'Chiel92/vim-autoformat'
+Plug 'rizzatti/dash.vim'
 
 " Language support
 Plug 'aklt/plantuml-syntax'
