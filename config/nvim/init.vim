@@ -91,7 +91,7 @@ set novisualbell                  " I said, no bells!
 set number                        " show number ruler
 set relativenumber                " show relative numbers in the ruler
 set ruler
-set formatoptions=tcqron          " set text formatting options"
+set formatoptions=tcqronj         " set vims text formatting options
 set softtabstop=2
 set tabstop=2
 "set textwidth=80
