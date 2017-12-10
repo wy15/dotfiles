@@ -50,6 +50,8 @@ Plug 'fatih/vim-go'
 Plug 'fishbullet/deoplete-ruby'
 Plug 'kchmck/vim-coffee-script'
 Plug 'kylef/apiblueprint.vim'
+Plug 'leafgarland/typescript-vim'              " TypeScript syntax highlighting
+Plug 'Quramy/tsuquyomi', { 'do': 'make' }      " TypeScript auto completion
 Plug 'lifepillar/pgsql.vim'
 Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 Plug 'plasticboy/vim-markdown'
