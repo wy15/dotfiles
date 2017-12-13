@@ -755,6 +755,22 @@ au FileType toml set softtabstop=2
 au FileType toml set tabstop=2
 
 "----------------------------------------------
+" Language: TypeScript
+"----------------------------------------------
+au FileType typescript set expandtab
+au FileType typescript set shiftwidth=4
+au FileType typescript set softtabstop=4
+au FileType typescript set tabstop=4
+
+"----------------------------------------------
+" Language: Vader
+"----------------------------------------------
+au FileType vader set expandtab
+au FileType vader set shiftwidth=2
+au FileType vader set softtabstop=2
+au FileType vader set tabstop=2
+
+"----------------------------------------------
 " Language: vimscript
 "----------------------------------------------
 au FileType vim set expandtab
