@@ -18,7 +18,7 @@ Plug 'Raimondi/delimitMate'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'  " Default snippets for many languages
-Plug 'airblade/vim-gitgutter'
+"Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-airline'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'ctrlpvim/ctrlp.vim'          " CtrlP is installed to support tag finding in vim-go
@@ -41,6 +41,12 @@ Plug 'tpope/vim-surround'
 Plug 'vimwiki/vimwiki'
 Plug 'Chiel92/vim-autoformat'
 Plug 'rizzatti/dash.vim'
+
+" Vim only plugins
+if !has('nvim')
+    Plug 'Shougo/vimproc.vim', {'do' : 'make'}  " Needed to make sebdah/vim-delve work on Vim
+    Plug 'Shougo/vimshell.vim'                  " Needed to make sebdah/vim-delve work on Vim
+endif
 
 " Language support
 Plug 'Quramy/tsuquyomi', { 'do': 'make' }      " TypeScript auto completion
