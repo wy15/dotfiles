@@ -659,6 +659,8 @@ au FileType javascript set expandtab
 au FileType javascript set shiftwidth=2
 au FileType javascript set softtabstop=2
 au FileType javascript set tabstop=2
+" neomake configuration for javascript
+let g:neomake_javascript_enabled_makers = ['eslint']
 
 "----------------------------------------------
 " Language: JSON
