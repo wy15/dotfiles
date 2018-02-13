@@ -570,12 +570,14 @@ let g:go_auto_sameids = 1
 " Fix for location list when vim-go is used together with Syntastic
 let g:go_list_type = "quickfix"
 
+" Add the failing test name to the output of :GoTest
+let g:go_test_show_name = 1
+
 " gometalinter configuration
 let g:go_metalinter_command = ""
 let g:go_metalinter_deadline = "5s"
 let g:go_metalinter_enabled = [
     \ 'deadcode',
-    \ 'errcheck',
     \ 'gas',
     \ 'goconst',
     \ 'gocyclo',
@@ -601,7 +603,6 @@ let g:neomake_go_gometalinter_maker = {
   \   '-D', 'dupl',
   \   '-D', 'gocyclo',
   \   '-D', 'gotype',
-  \   '-E', 'errcheck',
   \   '-E', 'misspell',
   \   '-E', 'unused',
   \   '%:p:h',
