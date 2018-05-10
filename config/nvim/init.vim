@@ -13,8 +13,8 @@ Plug 'godlygeek/tabular'           " This must come before plasticboy/vim-markdo
 Plug 'tpope/vim-rhubarb'           " Depenency for tpope/fugitive
 
 " General plugins
-Plug 'MattesGroeger/vim-bookmarks'
-Plug 'Raimondi/delimitMate'
+"Plug 'MattesGroeger/vim-bookmarks'
+"Plug 'Raimondi/delimitMate'        " insert mode auto-completion for quotes, parens, brackets, etc
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'  " Default snippets for many languages
@@ -22,16 +22,18 @@ Plug 'Shougo/neosnippet-snippets'  " Default snippets for many languages
 Plug 'bling/vim-airline'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'ctrlpvim/ctrlp.vim'          " CtrlP is installed to support tag finding in vim-go
-Plug 'easymotion/vim-easymotion'
+"Plug 'easymotion/vim-easymotion'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'itchyny/calendar.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/goyo.vim'
+Plug 'junegunn/goyo.vim'            " Distraction-free writing in Vim
 Plug 'majutsushi/tagbar'
+Plug 'mhinz/vim-signify'            " Show a diff using Vim its sign column
 Plug 'mileszs/ack.vim'
 Plug 'neomake/neomake'
 Plug 'rbgrouleff/bclose.vim'
+Plug 'sbdchd/neoformat'             " A (Neo)vim plugin for formatting code
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'sebdah/vim-delve'
@@ -39,8 +41,8 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'vimwiki/vimwiki'
-Plug 'Chiel92/vim-autoformat'
-Plug 'rizzatti/dash.vim'
+"Plug 'Chiel92/vim-autoformat'
+"Plug 'rizzatti/dash.vim'
 
 " Vim only plugins
 if !has('nvim')
@@ -58,21 +60,24 @@ Plug 'Quramy/tsuquyomi'                        " TypeScript auto completion
 Plug 'aklt/plantuml-syntax'                    " PlantUML syntax highlighting
 Plug 'cespare/vim-toml'                        " toml syntax highlighting
 Plug 'chr4/nginx.vim'                          " nginx syntax highlighting
-Plug 'dag/vim-fish'                            " Fish syntax highlighting
+"Plug 'dag/vim-fish'                            " Fish syntax highlighting
 Plug 'digitaltoad/vim-pug'                     " Pug syntax highlighting
 Plug 'fatih/vim-go'                            " Go support
-Plug 'fishbullet/deoplete-ruby'                " Ruby auto completion
+"Plug 'fishbullet/deoplete-ruby'                " Ruby auto completion
 Plug 'hashivim/vim-terraform'                  " Terraform syntax highlighting
-Plug 'kchmck/vim-coffee-script'                " CoffeeScript syntax highlighting
+"Plug 'kchmck/vim-coffee-script'                " CoffeeScript syntax highlighting
 Plug 'kylef/apiblueprint.vim'                  " API Blueprint syntax highlighting
 Plug 'leafgarland/typescript-vim'              " TypeScript syntax highlighting
 Plug 'lifepillar/pgsql.vim'                    " PostgreSQL syntax highlighting
+Plug 'mxw/vim-jsx'                             " JSX syntax highlighting
 Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 Plug 'pangloss/vim-javascript'                 " JavaScript syntax highlighting
 Plug 'plasticboy/vim-markdown'                 " Markdown syntax highlighting
 Plug 'tclh123/vim-thrift'                      " Thrift syntax highlighting
+Plug 'tclh123/vim-thrift'                      " Thrift syntax highlighting
 Plug 'zchee/deoplete-go', { 'do': 'make'}      " Go auto completion
-Plug 'zchee/deoplete-jedi'                     " Go auto completion
+Plug 'zchee/deoplete-jedi'                     " python auto completion
+Plug 'zimbatm/haproxy.vim'                     " HAProxy syntax highlighting
 
 " Colorschemes
 Plug 'NLKNguyen/papercolor-theme'
@@ -143,7 +148,7 @@ nnoremap <space> zz
 imap jk <Esc>
 
 " Autoformat
-noremap <leader>= :Autoformat<CR>
+noremap <leader>= :Neoformat<CR>
 
 " Cursor shape
 set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175
@@ -304,18 +309,18 @@ if has('unix') && !has('mac')
 endif
 
 " tabline configuration
-let g:airline#extensions#tabline#fnamemod = ':t'
-let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
-let g:airline#extensions#tabline#buffer_idx_mode = 1
-nmap <leader>1 <Plug>AirlineSelectTab1
-nmap <leader>2 <Plug>AirlineSelectTab2
-nmap <leader>3 <Plug>AirlineSelectTab3
-nmap <leader>4 <Plug>AirlineSelectTab4
-nmap <leader>5 <Plug>AirlineSelectTab5
-nmap <leader>6 <Plug>AirlineSelectTab6
-nmap <leader>7 <Plug>AirlineSelectTab7
-nmap <leader>8 <Plug>AirlineSelectTab8
-nmap <leader>9 <Plug>AirlineSelectTab9
+"let g:airline#extensions#tabline#fnamemod = ':t'
+"let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
+"let g:airline#extensions#tabline#buffer_idx_mode = 1
+"nmap <leader>1 <Plug>AirlineSelectTab1
+"nmap <leader>2 <Plug>AirlineSelectTab2
+"nmap <leader>3 <Plug>AirlineSelectTab3
+"nmap <leader>4 <Plug>AirlineSelectTab4
+"nmap <leader>5 <Plug>AirlineSelectTab5
+"nmap <leader>6 <Plug>AirlineSelectTab6
+"nmap <leader>7 <Plug>AirlineSelectTab7
+"nmap <leader>8 <Plug>AirlineSelectTab8
+"nmap <leader>9 <Plug>AirlineSelectTab9
 
 "----------------------------------------------
 " Plugin: christoomey/vim-tmux-navigator
@@ -363,6 +368,13 @@ let g:calendar_google_calendar = 1
 
 " Enable Google Tasks integration.
 let g:calendar_google_task = 1
+
+" Other options
+let g:calendar_first_day = "monday"           " Weeks starts with Monday
+let g:calendar_date_endian = "big"            " Format: year / month / day
+let g:calendar_date_separator = "-"           " Format: year - month - day
+let g:calendar_week_number = 1                " Show week numbers
+let g:calendar_view = "days"                  " Set days as the default view
 
 "----------------------------------------------
 " Plugin: 'junegunn/fzf.vim'
@@ -490,7 +502,7 @@ xmap <C-k> <Plug>(neosnippet_expand_target)
 let g:neosnippet#snippets_directory='~/.config/nvim/snippets'
 
 " Set snips author
-let g:snips_author = "wy@maqi.me"
+let g:snips_author = "mq83@maqi.me"
 
 "----------------------------------------------
 " Plugin: vimwiki/vimwiki
@@ -646,6 +658,14 @@ au FileType gitcommit setlocal spell spelllang=en_us,cjk
 au FileType gitcommit setlocal textwidth=80
 
 "----------------------------------------------
+" Language: gitconfig
+"----------------------------------------------
+au FileType gitconfig set noexpandtab
+au FileType gitconfig set shiftwidth=2
+au FileType gitconfig set softtabstop=2
+au FileType gitconfig set tabstop=2
+
+"----------------------------------------------
 " Language: HTML
 "----------------------------------------------
 au FileType html set expandtab
@@ -741,7 +761,7 @@ au FileType ruby set softtabstop=2
 au FileType ruby set tabstop=2
 
 " Enable neomake for linting.
-au FileType ruby autocmd BufWritePost * Neomake
+"au FileType ruby autocmd BufWritePost * Neomake
 
 "----------------------------------------------
 " Language: SQL
