@@ -116,13 +116,13 @@ set title                         " let vim set the terminal title
 set updatetime=100                " redraw the status bar often
 
 " neovim specific settings
-if has('nvim')
+" if has('nvim')
     " Set the Python binaries neovim is using. Please note that you will need to
     " install the neovim package for these binaries separately like this for
     " example:
     " mkvirtualenv neovim -p python3 && workon neovim && pip3.6 install -U neovim isort jedi yapf pylama
-    let g:python3_host_prog = $HOME.'/.virtualenvs/neovim/bin/python3'
-endif
+"    let g:python3_host_prog = $HOME.'/.virtualenvs/neovim/bin/python3'
+" endif
 
 " Enable mouse if possible
 if has('mouse')
