@@ -25,7 +25,8 @@ Plug 'ctrlpvim/ctrlp.vim'          " CtrlP is installed to support tag finding i
 "Plug 'easymotion/vim-easymotion'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'itchyny/calendar.vim'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+"Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim'            " Distraction-free writing in Vim
 Plug 'majutsushi/tagbar'
@@ -54,7 +55,11 @@ endif
 Plug 'fisadev/vim-isort'
 Plug 'udalov/kotlin-vim'
 Plug 'tfnico/vim-gradle'
-Plug 'sebastianmarkow/deoplete-rust'
+"Plug 'sebastianmarkow/deoplete-rust'
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 Plug 'hdima/python-syntax'
 Plug 'Quramy/tsuquyomi'                        " TypeScript auto completion
 Plug 'aklt/plantuml-syntax'                    " PlantUML syntax highlighting
@@ -63,6 +68,7 @@ Plug 'chr4/nginx.vim'                          " nginx syntax highlighting
 "Plug 'dag/vim-fish'                            " Fish syntax highlighting
 Plug 'digitaltoad/vim-pug'                     " Pug syntax highlighting
 Plug 'fatih/vim-go'                            " Go support
+Plug 'buoto/gotests-vim'                       " Generate Go tests from your source code.
 "Plug 'fishbullet/deoplete-ruby'                " Ruby auto completion
 Plug 'hashivim/vim-terraform'                  " Terraform syntax highlighting
 "Plug 'kchmck/vim-coffee-script'                " CoffeeScript syntax highlighting
@@ -124,7 +130,8 @@ if has('nvim')
     " install the neovim package for these binaries separately like this for
     " example:
     " mkvirtualenv neovim -p python3 && workon neovim && pip3.6 install -U neovim isort jedi yapf pylama
-    let g:python3_host_prog = $HOME.'/.virtualenvs/neovim/bin/python3'
+    "let g:python3_host_prog = $HOME.'/.virtualenvs/neovim/bin/python3'
+    let g:python3_host_prog = '/usr/local/bin/python3'
 endif
 
 " Enable mouse if possible
@@ -869,5 +876,8 @@ au FileType rust set softtabstop=4
 au FileType rust set tabstop=4
 
 au FileType rust autocmd BufWritePost * Neomake
-let g:deoplete#sources#rust#racer_binary='$HOME/.cargo/bin/racer'
-let g:deoplete#sources#rust#rust_source_path="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+"let g:deoplete#sources#rust#racer_binary='$HOME/.cargo/bin/racer'
+"let g:deoplete#sources#rust#rust_source_path="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'nightly', 'rls'],}
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
