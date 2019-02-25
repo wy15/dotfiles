@@ -55,6 +55,7 @@ endif
 Plug 'fisadev/vim-isort'
 Plug 'udalov/kotlin-vim'
 Plug 'tfnico/vim-gradle'
+Plug 'rust-lang/rust.vim'
 "Plug 'sebastianmarkow/deoplete-rust'
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
@@ -67,7 +68,7 @@ Plug 'cespare/vim-toml'                        " toml syntax highlighting
 Plug 'chr4/nginx.vim'                          " nginx syntax highlighting
 "Plug 'dag/vim-fish'                            " Fish syntax highlighting
 Plug 'digitaltoad/vim-pug'                     " Pug syntax highlighting
-Plug 'fatih/vim-go'                            " Go support
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }                            " Go support
 Plug 'buoto/gotests-vim'                       " Generate Go tests from your source code.
 "Plug 'fishbullet/deoplete-ruby'                " Ruby auto completion
 Plug 'hashivim/vim-terraform'                  " Terraform syntax highlighting
@@ -76,20 +77,21 @@ Plug 'kylef/apiblueprint.vim'                  " API Blueprint syntax highlighti
 Plug 'leafgarland/typescript-vim'              " TypeScript syntax highlighting
 Plug 'lifepillar/pgsql.vim'                    " PostgreSQL syntax highlighting
 Plug 'mxw/vim-jsx'                             " JSX syntax highlighting
-Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
+"Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
+"Plug 'stamblerre/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' } " For go modules
 Plug 'pangloss/vim-javascript'                 " JavaScript syntax highlighting
 Plug 'plasticboy/vim-markdown'                 " Markdown syntax highlighting
 Plug 'tclh123/vim-thrift'                      " Thrift syntax highlighting
-Plug 'tclh123/vim-thrift'                      " Thrift syntax highlighting
-Plug 'zchee/deoplete-go', { 'do': 'make'}      " Go auto completion
+"Plug 'zchee/deoplete-go', { 'do': 'make'}      " Go auto completion
 Plug 'zchee/deoplete-jedi'                     " python auto completion
 Plug 'zimbatm/haproxy.vim'                     " HAProxy syntax highlighting
+Plug 'peter-edge/vim-capnp'		       " Vim syntax highlighting (and folding) for Cap'N Proto schema files.
 
 " Colorschemes
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'connorholyday/vim-snazzy'
+"Plug 'NLKNguyen/papercolor-theme'
+"Plug 'connorholyday/vim-snazzy'
 Plug 'joshdick/onedark.vim'
-Plug 'sheerun/vim-polyglot'
+"Plug 'sheerun/vim-polyglot'
 
 call plug#end()
 
@@ -871,6 +873,7 @@ au FileType groovy set tabstop=4
 " Language: Rust
 "----------------------------------------------
 au FileType rust set expandtab
+"au FileType rust set noexpandtab
 au FileType rust set shiftwidth=4
 au FileType rust set softtabstop=4
 au FileType rust set tabstop=4
@@ -878,6 +881,21 @@ au FileType rust set tabstop=4
 au FileType rust autocmd BufWritePost * Neomake
 "let g:deoplete#sources#rust#racer_binary='$HOME/.cargo/bin/racer'
 "let g:deoplete#sources#rust#rust_source_path="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+let g:autofmt_autosave = 1
+
+"----------------------------------------------
+" LanguageClient: config
+"----------------------------------------------
+let g:LanguageClient_autoStart = 1
+let g:LanguageClient_rootMarkers = {
+        \ 'go': ['.git', 'go.mod'],
+        \ }
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'nightly', 'rls'],}
+    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+    \ 'go': ['bingo'],
+    \ 'typescript': ['javascript-typescript-stdio']
+    \ }
+    "\ 'python': ['pyls'],
+    "\ 'go': ['go-langserver', '-gocodecompletion'], 
+
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
