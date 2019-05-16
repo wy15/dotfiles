@@ -24,14 +24,15 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'ctrlpvim/ctrlp.vim'          " CtrlP is installed to support tag finding in vim-go
 "Plug 'easymotion/vim-easymotion'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'itchyny/calendar.vim'
+"Plug 'itchyny/calendar.vim'
 "Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'jremmen/vim-ripgrep'	    "Use RipGrep in Vim and display results in a quickfix list
 Plug 'junegunn/goyo.vim'            " Distraction-free writing in Vim
 Plug 'majutsushi/tagbar'
 Plug 'mhinz/vim-signify'            " Show a diff using Vim its sign column
-Plug 'mileszs/ack.vim'
+"Plug 'mileszs/ack.vim'
 Plug 'neomake/neomake'
 Plug 'rbgrouleff/bclose.vim'
 Plug 'sbdchd/neoformat'             " A (Neo)vim plugin for formatting code
@@ -50,48 +51,51 @@ if !has('nvim')
     Plug 'Shougo/vimproc.vim', {'do' : 'make'}  " Needed to make sebdah/vim-delve work on Vim
     Plug 'Shougo/vimshell.vim'                  " Needed to make sebdah/vim-delve work on Vim
 endif
+Plug 'justinmk/vim-gtfo'			" Go to Terminal or File manager
 
 " Language support
 Plug 'fisadev/vim-isort'
-Plug 'udalov/kotlin-vim'
-Plug 'tfnico/vim-gradle'
-Plug 'rust-lang/rust.vim'
+"Plug 'udalov/kotlin-vim'
+"Plug 'tfnico/vim-gradle'
+"Plug 'rust-lang/rust.vim'
 "Plug 'sebastianmarkow/deoplete-rust'
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
-Plug 'hdima/python-syntax'
-Plug 'Quramy/tsuquyomi'                        " TypeScript auto completion
-Plug 'aklt/plantuml-syntax'                    " PlantUML syntax highlighting
-Plug 'cespare/vim-toml'                        " toml syntax highlighting
-Plug 'chr4/nginx.vim'                          " nginx syntax highlighting
+"Plug 'hdima/python-syntax'
+"Plug 'Quramy/tsuquyomi'                        " TypeScript auto completion
+"Plug 'aklt/plantuml-syntax'                    " PlantUML syntax highlighting
+"Plug 'cespare/vim-toml'                        " toml syntax highlighting
+"Plug 'chr4/nginx.vim'                          " nginx syntax highlighting
 "Plug 'dag/vim-fish'                            " Fish syntax highlighting
-Plug 'digitaltoad/vim-pug'                     " Pug syntax highlighting
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }                            " Go support
+"Plug 'digitaltoad/vim-pug'                     " Pug syntax highlighting
+"Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }                            " Go support
 Plug 'buoto/gotests-vim'                       " Generate Go tests from your source code.
 "Plug 'fishbullet/deoplete-ruby'                " Ruby auto completion
-Plug 'hashivim/vim-terraform'                  " Terraform syntax highlighting
+"Plug 'hashivim/vim-terraform'                  " Terraform syntax highlighting
 "Plug 'kchmck/vim-coffee-script'                " CoffeeScript syntax highlighting
-Plug 'kylef/apiblueprint.vim'                  " API Blueprint syntax highlighting
-Plug 'leafgarland/typescript-vim'              " TypeScript syntax highlighting
-Plug 'lifepillar/pgsql.vim'                    " PostgreSQL syntax highlighting
-Plug 'mxw/vim-jsx'                             " JSX syntax highlighting
+"Plug 'kylef/apiblueprint.vim'                  " API Blueprint syntax highlighting
+"Plug 'leafgarland/typescript-vim'              " TypeScript syntax highlighting
+"Plug 'lifepillar/pgsql.vim'                    " PostgreSQL syntax highlighting
+"Plug 'mxw/vim-jsx'                             " JSX syntax highlighting
 "Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 "Plug 'stamblerre/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' } " For go modules
-Plug 'pangloss/vim-javascript'                 " JavaScript syntax highlighting
-Plug 'plasticboy/vim-markdown'                 " Markdown syntax highlighting
-Plug 'tclh123/vim-thrift'                      " Thrift syntax highlighting
+"Plug 'pangloss/vim-javascript'                 " JavaScript syntax highlighting
+"Plug 'plasticboy/vim-markdown'                 " Markdown syntax highlighting
+"Plug 'tclh123/vim-thrift'                      " Thrift syntax highlighting
 "Plug 'zchee/deoplete-go', { 'do': 'make'}      " Go auto completion
-Plug 'zchee/deoplete-jedi'                     " python auto completion
-Plug 'zimbatm/haproxy.vim'                     " HAProxy syntax highlighting
+"Plug 'zchee/deoplete-jedi'                     " python auto completion
+"Plug 'zimbatm/haproxy.vim'                     " HAProxy syntax highlighting
 Plug 'peter-edge/vim-capnp'		       " Vim syntax highlighting (and folding) for Cap'N Proto schema files.
+Plug 'jparise/vim-graphql'		       " GraphQL for Vim
+"Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}} " Intellisense engine
 
 " Colorschemes
-"Plug 'NLKNguyen/papercolor-theme'
+Plug 'NLKNguyen/papercolor-theme'
 "Plug 'connorholyday/vim-snazzy'
 Plug 'joshdick/onedark.vim'
-"Plug 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot'
 
 call plug#end()
 
@@ -470,7 +474,13 @@ nnoremap <leader>w :Bclose<cr>
 " Plugin: mileszs/ack.vim
 "----------------------------------------------
 " Open ack
-nnoremap <leader>a :Ack!<space>
+"nnoremap <leader>a :Ack!<space>
+
+"----------------------------------------------
+" Plugin: jremmen/vim-ripgrep
+"----------------------------------------------
+" Open ripgrep
+nnoremap <leader>a :Rg<space>
 
 "----------------------------------------------
 " Plugin: neomake/neomake
@@ -614,10 +624,13 @@ let g:go_auto_type_info = 1
 let g:go_auto_sameids = 1
 
 " Fix for location list when vim-go is used together with Syntastic
-let g:go_list_type = "quickfix"
+"let g:go_list_type = "quickfix"
 
 " Add the failing test name to the output of :GoTest
 let g:go_test_show_name = 1
+
+" Use godef insted of guru to support gomod
+"let g:go_def_mode = 'godef'
 
 " gometalinter configuration
 let g:go_metalinter_command = ""
@@ -892,10 +905,18 @@ let g:LanguageClient_rootMarkers = {
         \ }
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
-    \ 'go': ['bingo'],
-    \ 'typescript': ['javascript-typescript-stdio']
+    \ 'go': ['gopls'],
+    \ 'typescript': ['/usr/local/bin/javascript-typescript-stdio'],
+    \ 'typescript.jsx': ['tcp://127.0.0.1:2089'],
     \ }
     "\ 'python': ['pyls'],
     "\ 'go': ['go-langserver', '-gocodecompletion'], 
 
+" Run gofmt and goimports on save
+autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
+
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+"----------------------------------------------
+" gtfo.vim
+"----------------------------------------------
+let g:gtfo#terminals = { 'mac': 'iterm' }

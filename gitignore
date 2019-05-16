@@ -8,3 +8,4 @@ npm*.log*
 .vim-bookmarks
 /vendor
 /app
+node_modules/
