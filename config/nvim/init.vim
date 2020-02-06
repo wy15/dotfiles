@@ -19,9 +19,11 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'  " Default snippets for many languages
 "Plug 'airblade/vim-gitgutter'
-Plug 'bling/vim-airline'
+"Plug 'bling/vim-airline'
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'ctrlpvim/ctrlp.vim'          " CtrlP is installed to support tag finding in vim-go
+"Plug 'ctrlpvim/ctrlp.vim'          " CtrlP is installed to support tag finding in vim-go
 "Plug 'easymotion/vim-easymotion'
 Plug 'editorconfig/editorconfig-vim'
 "Plug 'itchyny/calendar.vim'
@@ -33,7 +35,7 @@ Plug 'junegunn/goyo.vim'            " Distraction-free writing in Vim
 Plug 'majutsushi/tagbar'
 Plug 'mhinz/vim-signify'            " Show a diff using Vim its sign column
 "Plug 'mileszs/ack.vim'
-Plug 'neomake/neomake'
+"Plug 'neomake/neomake'
 Plug 'rbgrouleff/bclose.vim'
 Plug 'sbdchd/neoformat'             " A (Neo)vim plugin for formatting code
 Plug 'scrooloose/nerdcommenter'
@@ -59,10 +61,10 @@ Plug 'fisadev/vim-isort'
 "Plug 'tfnico/vim-gradle'
 "Plug 'rust-lang/rust.vim'
 "Plug 'sebastianmarkow/deoplete-rust'
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
+"Plug 'autozimu/LanguageClient-neovim', {
+"    \ 'branch': 'next',
+"    \ 'do': 'bash install.sh',
+"    \ }
 "Plug 'hdima/python-syntax'
 "Plug 'Quramy/tsuquyomi'                        " TypeScript auto completion
 "Plug 'aklt/plantuml-syntax'                    " PlantUML syntax highlighting
@@ -87,15 +89,21 @@ Plug 'buoto/gotests-vim'                       " Generate Go tests from your sou
 "Plug 'zchee/deoplete-go', { 'do': 'make'}      " Go auto completion
 "Plug 'zchee/deoplete-jedi'                     " python auto completion
 "Plug 'zimbatm/haproxy.vim'                     " HAProxy syntax highlighting
-Plug 'peter-edge/vim-capnp'		       " Vim syntax highlighting (and folding) for Cap'N Proto schema files.
+Plug 'cstrahan/vim-capnp'		       " Vim syntax highlighting (and folding) for Cap'N Proto schema files.
 Plug 'jparise/vim-graphql'		       " GraphQL for Vim
 "Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}} " Intellisense engine
+"Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'vim-syntastic/syntastic'
 
 " Colorschemes
-Plug 'NLKNguyen/papercolor-theme'
+"Plug 'NLKNguyen/papercolor-theme'
 "Plug 'connorholyday/vim-snazzy'
 Plug 'joshdick/onedark.vim'
 Plug 'sheerun/vim-polyglot'
+Plug 'kaicataldo/material.vim'
+Plug 'itchyny/lightline.vim'
 
 call plug#end()
 
@@ -129,6 +137,8 @@ set tabstop=2
 "set textwidth=80
 set title                         " let vim set the terminal title
 set updatetime=100                " redraw the status bar often
+set wildmenu			  " command-line completion operates in an enhanced mode
+set wildmode=longest,list,full	  " :h 'wildmode'
 
 " neovim specific settings
 " if has('nvim')
@@ -174,28 +184,33 @@ set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinko
 "----------------------------------------------
 "set background=dark
 "colorscheme PaperColor
-colorscheme onedark
+"colorscheme onedark
+" Config material theme
+"let g:material_theme_style = 'default' | 'palenight' | 'ocean' | 'lighter' | 'darker'
+let g:material_theme_style = 'darker'
+let g:material_terminal_italics = 1
+colorscheme material
 
-if g:colors_name =='PaperColor'
-    set t_Co=256
-endif
+"if g:colors_name =='PaperColor'
+"    set t_Co=256
+"endif
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
 "(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
-if g:colors_name == 'onedark'
-    if (empty($TMUX))
-      if (has("nvim"))
+"if g:colors_name == 'onedark'
+"    if (empty($TMUX))
+"      if (has("nvim"))
         "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-        let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-      endif
+"        let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+"      endif
       "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
       "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
       " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
       if (has("termguicolors"))
         set termguicolors
       endif
-    endif
-endif
+"    endif
+"endif
 
 " Override the search highlight color with a combination that is easier to
 " read. The default PaperColor is dark green backgroun with black foreground.
@@ -205,7 +220,7 @@ endif
 highlight Search guibg=DeepPink4 guifg=White ctermbg=53 ctermfg=White
 
 " Toggle background with <leader>bg
-map <leader>bg :let &background = (&background == "dark"? "light" : "dark")<cr>
+"map <leader>bg :let &background = (&background == "dark"? "light" : "dark")<cr>
 
 "----------------------------------------------
 " Searching
@@ -333,17 +348,17 @@ endfunction
 set laststatus=2
 
 " Enable top tabline.
-let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled = 0
 
 " Disable showing tabs in the tabline. This will ensure that the buffers are
 " what is shown in the tabline at all times.
 let g:airline#extensions#tabline#show_tabs = 0
 
 " Disable powerline fonts.
-let g:airline_powerline_fonts = 0
+let g:airline_powerline_fonts = 1
 " When os is linux, set use ascii symbol
 if has('unix') && !has('mac')
-    let g:airline_symbols_ascii = 1
+    let g:airline_symbols_ascii = 0
 endif
 
 " tabline configuration
@@ -359,6 +374,7 @@ endif
 "nmap <leader>7 <Plug>AirlineSelectTab7
 "nmap <leader>8 <Plug>AirlineSelectTab8
 "nmap <leader>9 <Plug>AirlineSelectTab9
+"let g:airline_theme = 'material'
 
 "----------------------------------------------
 " Plugin: christoomey/vim-tmux-navigator
@@ -486,10 +502,14 @@ nnoremap <leader>a :Rg<space>
 " Plugin: neomake/neomake
 "----------------------------------------------
 " Configure signs.
-let g:neomake_error_sign   = {'text': '✖', 'texthl': 'NeomakeErrorSign'}
-let g:neomake_warning_sign = {'text': '∆', 'texthl': 'NeomakeWarningSign'}
-let g:neomake_message_sign = {'text': '➤', 'texthl': 'NeomakeMessageSign'}
-let g:neomake_info_sign    = {'text': 'ℹ', 'texthl': 'NeomakeInfoSign'}
+"let g:neomake_error_sign   = {'text': '✖', 'texthl': 'NeomakeErrorSign'}
+"let g:neomake_warning_sign = {'text': '∆', 'texthl': 'NeomakeWarningSign'}
+"let g:neomake_message_sign = {'text': '➤', 'texthl': 'NeomakeMessageSign'}
+"let g:neomake_info_sign    = {'text': 'ℹ', 'texthl': 'NeomakeInfoSign'}
+
+" Full config: when writing or reading a buffer, and on changes in insert and
+" normal mode (after 1s; no delay when writing).
+"call neomake#configure#automake('nrwi', 500)
 
 "----------------------------------------------
 " Plugin: scrooloose/nerdtree
@@ -553,7 +573,7 @@ let g:snips_author = "mq83@maqi.me"
 "----------------------------------------------
 " Path to wiki
 let g:vimwiki_list = [{
-        \ 'path': '~/Dropbox/vimwiki',
+        \ 'path': '~/Documents/vimwiki',
         \ 'syntax': 'markdown',
         \ 'ext': '.vimwiki.markdown'}]
 
@@ -583,20 +603,20 @@ au FileType go set softtabstop=4
 au FileType go set tabstop=4
 
 " Mappings
-au FileType go nmap <F8> :GoMetaLinter<cr>
-au FileType go nmap <F9> :GoCoverageToggle -short<cr>
-au FileType go nmap <F10> :GoTest -short<cr>
-au FileType go nmap <F12> <Plug>(go-def)
-au Filetype go nmap <leader>ga <Plug>(go-alternate-edit)
-au Filetype go nmap <leader>gah <Plug>(go-alternate-split)
-au Filetype go nmap <leader>gav <Plug>(go-alternate-vertical)
-au FileType go nmap <leader>gt :GoDeclsDir<cr>
-au FileType go nmap <leader>gc <Plug>(go-coverage-toggle)
-au FileType go nmap <leader>gd <Plug>(go-def)
-au FileType go nmap <leader>gdv <Plug>(go-def-vertical)
-au FileType go nmap <leader>gdh <Plug>(go-def-split)
-au FileType go nmap <leader>gD <Plug>(go-doc)
-au FileType go nmap <leader>gDv <Plug>(go-doc-vertical)
+"au FileType go nmap <F8> :GoMetaLinter<cr>
+"au FileType go nmap <F9> :GoCoverageToggle -short<cr>
+"au FileType go nmap <F10> :GoTest -short<cr>
+"au FileType go nmap <F12> <Plug>(go-def)
+"au Filetype go nmap <leader>ga <Plug>(go-alternate-edit)
+"au Filetype go nmap <leader>gah <Plug>(go-alternate-split)
+"au Filetype go nmap <leader>gav <Plug>(go-alternate-vertical)
+"au FileType go nmap <leader>gt :GoDeclsDir<cr>
+"au FileType go nmap <leader>gc <Plug>(go-coverage-toggle)
+"au FileType go nmap <leader>gd <Plug>(go-def)
+"au FileType go nmap <leader>gdv <Plug>(go-def-vertical)
+"au FileType go nmap <leader>gdh <Plug>(go-def-split)
+"au FileType go nmap <leader>gD <Plug>(go-doc)
+"au FileType go nmap <leader>gDv <Plug>(go-doc-vertical)
 
 " Run goimports when running gofmt
 let g:go_fmt_command = "goimports"
@@ -633,46 +653,46 @@ let g:go_test_show_name = 1
 "let g:go_def_mode = 'godef'
 
 " gometalinter configuration
-let g:go_metalinter_command = ""
-let g:go_metalinter_deadline = "5s"
-let g:go_metalinter_enabled = [
-    \ 'deadcode',
-    \ 'gas',
-    \ 'goconst',
-    \ 'gocyclo',
-    \ 'golint',
-    \ 'gosimple',
-    \ 'ineffassign',
-    \ 'vet',
-    \ 'vetshadow'
-\]
+"let g:go_metalinter_command = ''
+"let g:go_metalinter_deadline = '5s'
+"let g:go_metalinter_enabled = [
+"    \ 'deadcode',
+"    \ 'gas',
+"    \ 'goconst',
+"    \ 'gocyclo',
+"    \ 'golint',
+"    \ 'gosimple',
+"    \ 'ineffassign',
+"    \ 'vet',
+"    \ 'vetshadow'
+"\]
 
 " Set whether the JSON tags should be snakecase or camelcase.
 let g:go_addtags_transform = "snakecase"
 
 " neomake configuration for Go.
-let g:neomake_go_enabled_makers = [ 'go', 'gometalinter' ]
-let g:neomake_go_gometalinter_maker = {
-  \ 'args': [
-  \   '--tests',
-  \   '--enable-gc',
-  \   '--concurrency=3',
-  \   '--fast',
-  \   '-D', 'aligncheck',
-  \   '-D', 'dupl',
-  \   '-D', 'gocyclo',
-  \   '-D', 'gotype',
-  \   '-E', 'misspell',
-  \   '-E', 'unused',
-  \   '%:p:h',
-  \ ],
-  \ 'append_file': 0,
-  \ 'errorformat':
-  \   '%E%f:%l:%c:%trror: %m,' .
-  \   '%W%f:%l:%c:%tarning: %m,' .
-  \   '%E%f:%l::%trror: %m,' .
-  \   '%W%f:%l::%tarning: %m'
-  \ }
+"let g:neomake_go_enabled_makers = [ 'go', 'gometalinter' ]
+"let g:neomake_go_gometalinter_maker = {
+"  \ 'args': [
+"  \   '--tests',
+"  \   '--enable-gc',
+"  \   '--concurrency=3',
+"  \   '--fast',
+"  \   '-D', 'aligncheck',
+"  \   '-D', 'dupl',
+"  \   '-D', 'gocyclo',
+"  \   '-D', 'gotype',
+"  \   '-E', 'misspell',
+"  \   '-E', 'unused',
+"  \   '%:p:h',
+"  \ ],
+"  \ 'append_file': 0,
+"  \ 'errorformat':
+"  \   '%E%f:%l:%c:%trror: %m,' .
+"  \   '%W%f:%l:%c:%tarning: %m,' .
+"  \   '%E%f:%l::%trror: %m,' .
+"  \   '%W%f:%l::%tarning: %m'
+"  \ }
 
 "----------------------------------------------
 " Language: apiblueprint
@@ -728,7 +748,7 @@ au FileType javascript set shiftwidth=2
 au FileType javascript set softtabstop=2
 au FileType javascript set tabstop=2
 " neomake configuration for javascript
-let g:neomake_javascript_enabled_makers = ['eslint']
+"let g:neomake_javascript_enabled_makers = ['eslint']
 
 "----------------------------------------------
 " Language: JSON
@@ -789,7 +809,7 @@ au FileType python set softtabstop=4
 au FileType python set tabstop=4
 
 " Enable neomake for linting.
-au FileType python autocmd BufWritePost * Neomake
+"au FileType python autocmd BufWritePost * Neomake
 
 " isort
 "let g:vim_isort_map='<C-i>'
@@ -891,7 +911,7 @@ au FileType rust set shiftwidth=4
 au FileType rust set softtabstop=4
 au FileType rust set tabstop=4
 
-au FileType rust autocmd BufWritePost * Neomake
+" au FileType rust autocmd BufWritePost * Neomake
 "let g:deoplete#sources#rust#racer_binary='$HOME/.cargo/bin/racer'
 "let g:deoplete#sources#rust#rust_source_path="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 let g:autofmt_autosave = 1
@@ -899,24 +919,35 @@ let g:autofmt_autosave = 1
 "----------------------------------------------
 " LanguageClient: config
 "----------------------------------------------
-let g:LanguageClient_autoStart = 1
-let g:LanguageClient_rootMarkers = {
-        \ 'go': ['.git', 'go.mod'],
-        \ }
-let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
-    \ 'go': ['gopls'],
-    \ 'typescript': ['/usr/local/bin/javascript-typescript-stdio'],
-    \ 'typescript.jsx': ['tcp://127.0.0.1:2089'],
-    \ }
+"let g:LanguageClient_autoStart = 1
+"let g:LanguageClient_rootMarkers = {
+"        \ 'go': ['.git', 'go.mod'],
+"        \ }
+"let g:LanguageClient_serverCommands = {
+"    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+"    \ 'go': ['gopls'],
+"    \ 'typescript': ['/usr/local/bin/javascript-typescript-stdio'],
+"    \ 'typescript.jsx': ['tcp://127.0.0.1:2089'],
+"    \ 'python': ['pyls'],
+"    \ }
     "\ 'python': ['pyls'],
     "\ 'go': ['go-langserver', '-gocodecompletion'], 
 
 " Run gofmt and goimports on save
-autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
+"autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
 
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+"nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 "----------------------------------------------
 " gtfo.vim
 "----------------------------------------------
 let g:gtfo#terminals = { 'mac': 'iterm' }
+
+"----------------------------------------------
+" vim-syntastic/syntastic
+"----------------------------------------------
+let g:syntastic_go_checkers = ['golangci_lint']
+
+"----------------------------------------------
+" lightline.vim config
+"----------------------------------------------
+let g:lightline = { 'colorscheme': 'material_vim' }
