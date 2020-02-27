@@ -649,8 +649,8 @@ au FileType go set tabstop=4
 " Add the failing test name to the output of :GoTest
 "let g:go_test_show_name = 1
 
-" Use godef insted of guru to support gomod
-"let g:go_def_mode = 'godef'
+let g:go_def_mode = 'gopls'
+let g:go_info_mode = 'gopls'
 
 " gometalinter configuration
 "let g:go_metalinter_command = ''
