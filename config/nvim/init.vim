@@ -9,7 +9,7 @@ call plug#begin('~/.config/nvim/plugged')
 
 " Dependencies
 Plug 'Shougo/neocomplcache'        " Depenency for Shougo/neosnippet
-Plug 'godlygeek/tabular'           " This must come before plasticboy/vim-markdown
+"Plug 'godlygeek/tabular'           " This must come before plasticboy/vim-markdown
 Plug 'tpope/vim-rhubarb'           " Depenency for tpope/fugitive
 
 " General plugins
@@ -22,7 +22,6 @@ Plug 'Shougo/neosnippet-snippets'  " Default snippets for many languages
 "Plug 'bling/vim-airline'
 "Plug 'vim-airline/vim-airline'
 "Plug 'vim-airline/vim-airline-themes'
-Plug 'christoomey/vim-tmux-navigator'
 "Plug 'ctrlpvim/ctrlp.vim'          " CtrlP is installed to support tag finding in vim-go
 "Plug 'easymotion/vim-easymotion'
 Plug 'editorconfig/editorconfig-vim'
@@ -30,17 +29,18 @@ Plug 'editorconfig/editorconfig-vim'
 "Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'jremmen/vim-ripgrep'	    "Use RipGrep in Vim and display results in a quickfix list
+Plug 'jremmen/vim-ripgrep'	    " Use RipGrep in Vim and display results in a quickfix list
 Plug 'junegunn/goyo.vim'            " Distraction-free writing in Vim
 Plug 'majutsushi/tagbar'
 Plug 'mhinz/vim-signify'            " Show a diff using Vim its sign column
 "Plug 'mileszs/ack.vim'
 "Plug 'neomake/neomake'
-Plug 'rbgrouleff/bclose.vim'
+Plug 'rbgrouleff/bclose.vim'        " Deleting a buffer without closing the window
 Plug 'sbdchd/neoformat'             " A (Neo)vim plugin for formatting code
-Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/nerdtree'
-Plug 'sebdah/vim-delve'
+Plug 'preservim/nerdcommenter'      " Commenter <leader>cc <leader>cu <leader>ci
+"Plug 'preservim/nerdtree'           " Explorer and file manager
+Plug 'ryanoasis/vim-devicons' 	    " Add icons to your plugins
+Plug 'sebdah/vim-delve'             " Go debuger
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
@@ -96,6 +96,9 @@ Plug 'jparise/vim-graphql'		       " GraphQL for Vim
 "Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'vim-syntastic/syntastic'
+Plug 'dbeniamine/cheat.sh-vim'			" cheat.sh
+Plug 'luochen1990/rainbow'			" Rainbow Parentheses Improved
+Plug 'christoomey/vim-tmux-navigator'		" Seamless navigation between tmux panes and vim splits
 
 " Colorschemes
 "Plug 'NLKNguyen/papercolor-theme'
@@ -110,6 +113,65 @@ call plug#end()
 "----------------------------------------------
 " General settings
 "----------------------------------------------
+" Show buffer outline
+function! s:outline_format(lists)
+  for list in a:lists
+    let linenr = list[2][:len(list[2])-3]
+    let line = getline(linenr)
+    let idx = stridx(line, list[0])
+    let len = len(list[0])
+    let fg = synIDattr(synIDtrans(hlID("LineNr")), 'fg', 'cterm')
+    let bg = synIDattr(synIDtrans(hlID("LineNr")), 'bg', 'cterm')
+    let list[0] = ''
+          \ . printf("\x1b[%sm %4d \x1b[m ", '38;5;'.fg.';48;5;'.bg, linenr)
+          \ . line[:idx-1]
+          \ . printf("\x1b[%sm%s\x1b[m", "34", line[idx:idx+len-1])
+          \ . line[idx+len:]
+    let list = list[:2]
+  endfor
+  return a:lists
+endfunction
+function! s:outline_source(tag_cmds)
+  if !filereadable(expand('%'))
+    throw 'Save the file first'
+  endif
+  for cmd in a:tag_cmds
+    let lines = split(system(cmd), "\n")
+    if !v:shell_error
+      break
+    endif
+  endfor
+  if v:shell_error
+    throw get(lines, 0, 'Failed to extract tags')
+  elseif empty(lines)
+    throw 'No tags found'
+  endif
+  return map(s:outline_format(map(lines, 'split(v:val, "\t")')), 'join(v:val, "\t")')
+endfunction
+function! s:outline_sink(lines)
+  if !empty(a:lines)
+    let line = a:lines[0]
+    execute split(line, "\t")[2]
+  endif
+endfunction
+function! s:outline(...)
+  let args = copy(a:000)
+  let tag_cmds = [
+    \ printf('ctags -f - --sort=no --excmd=number --language-force=%s %s 2>/dev/null', &filetype, expand('%:S')),
+    \ printf('ctags -f - --sort=no --excmd=number %s 2>/dev/null', expand('%:S'))]
+  try
+    return fzf#run(fzf#wrap('outline', {
+      \ 'source':  s:outline_source(tag_cmds),
+      \ 'sink*':   function('s:outline_sink'),
+      \ 'options': '--tiebreak=index --reverse +m -d "\t" --with-nth=1 -n 1 --ansi --extended --prompt "Outline> "'}))
+  catch
+    echohl WarningMsg
+    echom v:exception
+    echohl None
+  endtry
+endfunction
+command! -bang Outline call s:outline()
+
 set autoindent                    " take indent for new line from previous line
 set smartindent                   " enable smart indentation
 set autoread                      " reload file if the file changes on the disk
@@ -148,6 +210,7 @@ set wildmode=longest,list,full	  " :h 'wildmode'
     " mkvirtualenv neovim -p python3 && workon neovim && pip3.6 install -U neovim isort jedi yapf pylama
     "let g:python3_host_prog = $HOME.'/.virtualenvs/neovim/bin/python3'
     let g:python3_host_prog = '/Users/maqi/work/forneovim/.venv/bin/python'
+    let g:loaded_python_provider = 0
 " endif
 
 " Enable mouse if possible
@@ -514,27 +577,34 @@ nnoremap <leader>a :Rg<space>
 "----------------------------------------------
 " Plugin: scrooloose/nerdtree
 "----------------------------------------------
-nnoremap <leader>d :NERDTreeToggle<cr>
-nnoremap <F2> :NERDTreeToggle<cr>
+"nnoremap <leader>d :NERDTreeToggle<cr>
+"nnoremap <F2> :NERDTreeToggle<cr>
 
 " Files to ignore
-let NERDTreeIgnore = [
-    \ '\~$',
-    \ '\.pyc$',
-    \ '^\.DS_Store$',
-    \ '^node_modules$',
-    \ '^.ropeproject$',
-    \ '^__pycache__$'
-\]
+"let NERDTreeIgnore = [
+"    \ '\~$',
+"    \ '\.pyc$',
+"    \ '^\.DS_Store$',
+"    \ '^node_modules$',
+"    \ '^.ropeproject$',
+"    \ '^__pycache__$'
+"\]
 
 " Close vim if NERDTree is the only opened window.
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 " Show hidden files by default.
-let NERDTreeShowHidden = 1
+"let NERDTreeShowHidden = 1
 
 " Allow NERDTree to change session root.
-let g:NERDTreeChDirMode = 2
+"let g:NERDTreeChDirMode = 2
+
+
+"----------------------------------------------
+" coc-explorer config
+"----------------------------------------------
+nmap <leader>d :CocCommand explorer<CR>
+nmap <F2> :CocCommand explorer<CR>
 
 "----------------------------------------------
 " Plugin: sebdah/vim-delve
@@ -948,12 +1018,29 @@ let g:gtfo#terminals = { 'mac': 'iterm' }
 "----------------------------------------------
 " vim-syntastic/syntastic
 "----------------------------------------------
-"let g:syntastic_go_checkers = ['golangci_lint']
+let g:syntastic_go_checkers = ['golangci_lint']
 
 "----------------------------------------------
 " lightline.vim config
 "----------------------------------------------
 let g:lightline = { 'colorscheme': 'material_vim' }
+
+"----------------------------------------------
+" syntastic config
+"----------------------------------------------
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" -------------------------------------------------------------------------------------------------
+" rainbow default settings
+" -------------------------------------------------------------------------------------------------
+let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
 
 " -------------------------------------------------------------------------------------------------
 " coc.nvim default settings
@@ -997,7 +1084,17 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use U to show documentation in preview window
-nnoremap <silent> U :call <SID>show_documentation()<CR>
+"nnoremap <silent> U :call <SID>show_documentation()<CR>
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
 
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
@@ -1026,3 +1123,5 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+" Status line
+set statusline^=%{coc#status()}
