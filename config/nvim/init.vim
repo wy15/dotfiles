@@ -721,6 +721,7 @@ au FileType go set tabstop=4
 
 let g:go_def_mode = 'gopls'
 let g:go_info_mode = 'gopls'
+let g:go_doc_popup_window = 1
 
 " gometalinter configuration
 "let g:go_metalinter_command = ''
@@ -765,7 +766,7 @@ let g:go_info_mode = 'gopls'
 "  \ }
 " disable vim-go :GoDef short cut (gd)
 " this is handled by LanguageClient [LC]
-let g:go_def_mapping_enabled = 0
+"let g:go_def_mapping_enabled = 0
 
 "----------------------------------------------
 " Language: apiblueprint
@@ -1013,7 +1014,7 @@ let g:autofmt_autosave = 1
 "----------------------------------------------
 " gtfo.vim
 "----------------------------------------------
-let g:gtfo#terminals = { 'mac': 'iterm' }
+"let g:gtfo#terminals = { 'mac': 'iterm' }
 
 "----------------------------------------------
 " vim-syntastic/syntastic
