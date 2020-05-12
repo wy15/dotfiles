@@ -8,7 +8,7 @@
 call plug#begin('~/.config/nvim/plugged')
 
 " Dependencies
-Plug 'Shougo/neocomplcache'        " Depenency for Shougo/neosnippet
+"Plug 'Shougo/neocomplcache'        " Depenency for Shougo/neosnippet
 "Plug 'godlygeek/tabular'           " This must come before plasticboy/vim-markdown
 Plug 'tpope/vim-rhubarb'           " Depenency for tpope/fugitive
 
@@ -16,8 +16,15 @@ Plug 'tpope/vim-rhubarb'           " Depenency for tpope/fugitive
 "Plug 'MattesGroeger/vim-bookmarks'
 "Plug 'Raimondi/delimitMate'        " insert mode auto-completion for quotes, parens, brackets, etc
 "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet-snippets'  " Default snippets for many languages
+"if has('nvim')
+"  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"else
+"  Plug 'Shougo/deoplete.nvim'
+"  Plug 'roxma/nvim-yarp'
+"  Plug 'roxma/vim-hug-neovim-rpc'
+"endif
+"Plug 'Shougo/neosnippet'
+"Plug 'Shougo/neosnippet-snippets'  " Default snippets for many languages
 "Plug 'airblade/vim-gitgutter'
 "Plug 'bling/vim-airline'
 "Plug 'vim-airline/vim-airline'
@@ -99,6 +106,7 @@ Plug 'vim-syntastic/syntastic'
 Plug 'dbeniamine/cheat.sh-vim'			" cheat.sh
 Plug 'luochen1990/rainbow'			" Rainbow Parentheses Improved
 Plug 'christoomey/vim-tmux-navigator'		" Seamless navigation between tmux panes and vim splits
+Plug 'honza/vim-snippets'
 
 " Colorschemes
 "Plug 'NLKNguyen/papercolor-theme'
@@ -620,23 +628,23 @@ let g:delve_backend = "native"
 "
 " Below you can disable default snippets for specific languages. If you set the
 " language to _ it sets the default for all languages.
-let g:neosnippet#disable_runtime_snippets = {
-    \ 'go': 1
-\}
+"let g:neosnippet#disable_runtime_snippets = {
+"    \ 'go': 1
+"\}
 
 " Keybindings
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
-xmap <C-k> <Plug>(neosnippet_expand_target)
+"imap <C-k> <Plug>(neosnippet_expand_or_jump)
+"smap <C-k> <Plug>(neosnippet_expand_or_jump)
+"xmap <C-k> <Plug>(neosnippet_expand_target)
 
 " Enable snipMate compatibility feature.
 "let g:neosnippet#enable_snipmate_compatibility = 1
 
 " Set the path to our snippets
-let g:neosnippet#snippets_directory='~/.config/nvim/snippets'
+"let g:neosnippet#snippets_directory='~/.config/nvim/snippets'
 
 " Set snips author
-let g:snips_author = "mq83@maqi.me"
+"let g:snips_author = "mq83@maqi.me"
 
 "----------------------------------------------
 " Plugin: vimwiki/vimwiki
@@ -1062,6 +1070,8 @@ set signcolumn=yes
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
+"      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
@@ -1070,6 +1080,30 @@ function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+let g:coc_snippet_next = '<tab>'
+" Use <C-l> for trigger snippet expand.
+imap <C-l> <Plug>(coc-snippets-expand)
+
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+"let g:coc_snippet_next = '<c-j>'
+
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+"let g:coc_snippet_prev = '<c-k>'
+
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
