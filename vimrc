@@ -20,7 +20,8 @@ Plug 'preservim/nerdcommenter'
 Plug 'buoto/gotests-vim'
 Plug 'google/vim-colorscheme-primary'
 Plug 'terryma/vim-multiple-cursors'
-"Plug 'wakatime/vim-wakatime'
+Plug 'cstrahan/vim-capnp'
+Plug 'wakatime/vim-wakatime'
 " Initialize plugin system
 call plug#end()
 
@@ -28,7 +29,8 @@ call plug#end()
 let mapleader = ','
 
 " Allow vim to set a custom font or color for a word
-syntax enable
+" syntax enable
+syntax on
 
 "if (has("termguicolors"))
 "        set termguicolors
@@ -118,6 +120,7 @@ au FileType rust set expandtab
 au FileType rust set shiftwidth=4
 au FileType rust set softtabstop=4
 au FileType rust set tabstop=4
+let g:rustfmt_autosave = 1
 "----------------------------------------------
 " Language: Python
 "----------------------------------------------
@@ -197,3 +200,8 @@ let g:tagbar_type_go = {
     \ 'ctagsbin'  : 'gotags',
     \ 'ctagsargs' : '-sort -silent'
 \ }
+
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 2
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
