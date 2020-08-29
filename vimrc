@@ -19,6 +19,7 @@ Plug 'majutsushi/tagbar'
 Plug 'preservim/nerdcommenter'
 Plug 'buoto/gotests-vim'
 Plug 'google/vim-colorscheme-primary'
+Plug 'tomasiser/vim-code-dark'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'cstrahan/vim-capnp'
 Plug 'wakatime/vim-wakatime'
@@ -30,7 +31,7 @@ let mapleader = ','
 
 " Allow vim to set a custom font or color for a word
 " syntax enable
-syntax on
+" syntax on
 
 "if (has("termguicolors"))
 "        set termguicolors
@@ -49,9 +50,12 @@ nnoremap <space> zz
 "let g:material_terminal_italics = 1
 let g:rainbow_active = 1
 "colorscheme material
-set t_Co=256
-set background=dark
-colorscheme primary
+"syntax enable
+syntax on
+"set t_Co=256
+"set background=dark
+"colorscheme primary
+colorscheme codedark
 
 set autoindent                    " take indent for new line from previous line
 set smartindent                   " enable smart indentation
@@ -173,6 +177,14 @@ let g:tagbar_type_rust = {
 
 " Language: Go
 " Tagbar configuration for Golang
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_function_parameters = 1
 let g:tagbar_type_go = {
     \ 'ctagstype' : 'go',
     \ 'kinds'     : [
