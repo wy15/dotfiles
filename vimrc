@@ -20,6 +20,7 @@ Plug 'preservim/nerdcommenter'
 Plug 'buoto/gotests-vim'
 Plug 'google/vim-colorscheme-primary'
 Plug 'tomasiser/vim-code-dark'
+Plug 'ayu-theme/ayu-vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'cstrahan/vim-capnp'
 Plug 'wakatime/vim-wakatime'
@@ -55,7 +56,19 @@ syntax on
 "set t_Co=256
 "set background=dark
 "colorscheme primary
-colorscheme codedark
+"colorscheme codedark
+"let ayucolor="dark"
+"colorscheme ayu
+if (has("gui_running"))
+  set termguicolors
+  let ayucolor="dark"
+  colorscheme ayu
+  " Toggle background with <leader>bg
+  " set modifiable
+  map <leader>bg :let ayucolor = (ayucolor == "dark"? "light" : "dark")\|colorscheme ayu<cr>
+else
+  colorscheme codedark
+endif
 
 set autoindent                    " take indent for new line from previous line
 set smartindent                   " enable smart indentation
