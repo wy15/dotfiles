@@ -4,7 +4,8 @@
 	name = mq83
 	email = xiaobagou@gmail.com
 	#signingkey = 8AF84F46
-	signingkey = 94865B4A1B54F4B1
+	#signingkey = 94865B4A1B54F4B1
+	signingkey = 0x3554120F21205126
 [core]
 	editor = vim
 	whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol

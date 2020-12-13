@@ -24,6 +24,7 @@ Plug 'ayu-theme/ayu-vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'cstrahan/vim-capnp'
 Plug 'wakatime/vim-wakatime'
+" Plug 'humanoid-colors/vim-humanoid-colorscheme'
 " Initialize plugin system
 call plug#end()
 
@@ -68,6 +69,7 @@ if (has("gui_running"))
   map <leader>bg :let ayucolor = (ayucolor == "dark"? "light" : "dark")\|colorscheme ayu<cr>
 else
   colorscheme codedark
+  " colorscheme humanoid
 endif
 
 set autoindent                    " take indent for new line from previous line
@@ -83,6 +85,9 @@ endif
 "set clipboard=unnamedplus
 "set colorcolumn=81                " highlight the 80th column as an indicator
 set completeopt-=preview          " remove the horrendous preview window
+ set completeopt+=menuone
+ set completeopt+=noinsert
+ set completeopt-=longest
 "set cursorline                    " highlight the current line for the cursor
 "hi clear CursorLine
 "hi CursorLine gui=underline cterm=underline
@@ -116,6 +121,7 @@ set wildmode=longest,list,full	  " :h 'wildmode'
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
+set mouse=n
 
 "----------------------------------------------
 " Plugin: scrooloose/nerdtree
@@ -237,3 +243,6 @@ let g:tagbar_type_go = {
 let g:NERDSpaceDelims = 2
 " Use compact syntax for prettified multi-line comments
 let g:NERDCompactSexyComs = 1
+
+" kite config
+let g:kite_supported_languages = ['python', 'javascript', 'go', 'c' , 'typescript', 'html', 'css']

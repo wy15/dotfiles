@@ -186,7 +186,7 @@ set autoread                      " reload file if the file changes on the disk
 set autowrite                     " write when switching buffers
 set autowriteall                  " write on :quit
 set clipboard=unnamedplus
-set colorcolumn=81                " highlight the 80th column as an indicator
+" set colorcolumn=81                " highlight the 80th column as an indicator
 set completeopt-=preview          " remove the horrendous preview window
 set cursorline                    " highlight the current line for the cursor
 set encoding=utf-8
@@ -217,7 +217,7 @@ set wildmode=longest,list,full	  " :h 'wildmode'
     " example:
     " mkvirtualenv neovim -p python3 && workon neovim && pip3.6 install -U neovim isort jedi yapf pylama
     "let g:python3_host_prog = $HOME.'/.virtualenvs/neovim/bin/python3'
-    let g:python3_host_prog = '/Users/maqi/work/forneovim/.venv/bin/python'
+    let g:python3_host_prog = '/Users/maqi/.pyenv/shims/python'
     let g:loaded_python_provider = 0
 " endif
 
