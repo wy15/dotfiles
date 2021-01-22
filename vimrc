@@ -11,7 +11,7 @@ Plug 'kaicataldo/material.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'sheerun/vim-polyglot'
 Plug 'luochen1990/rainbow'
-Plug '/usr/local/opt/fzf'
+Plug '/opt/homebrew/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'jremmen/vim-ripgrep'    " Use RipGrep in Vim and display results in a quickfix list
 Plug 'rust-lang/rust.vim'
